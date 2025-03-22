@@ -28,6 +28,7 @@ export class LoginComponent {
   login() {
     this.authService.login({email: this.email,password: this.password}).subscribe(
       (res: any) => {
+        localStorage.setItem('access_token', res.access_token);
         this.toastr.success('Login successful!');
         if (res.user.role === 'admin') {
           this.router.navigate(['/admin']);

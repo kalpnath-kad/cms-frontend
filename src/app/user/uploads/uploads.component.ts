@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-user-uploads',
@@ -35,7 +36,7 @@ export class UploadsComponent {
     const formData = new FormData();
     formData.append('file', this.file);
 
-    this.http.post('http://localhost:3000/uploads', formData).subscribe({
+    this.http.post(`${environment.apiBaseUrl}/uploads`, formData).subscribe({
       next: () => this.toastr.success('File uploaded successfully!'),
       error: () => this.toastr.error('Upload failed!')
     });

@@ -1,0 +1,17 @@
+<h2>Uploaded Files</h2>
+<table>
+  <tr>
+    <th>File Name</th>
+    <th>Uploader</th>
+    <th>Approved</th>
+    <th>Actions</th>
+  </tr>
+  <tr *ngFor="let file of uploadedFiles">
+    <td>{{ file.fileName }}</td>
+    <td>{{ file.uploader.email }}</td>
+    <td>{{ file.isApproved ? '✅ Yes' : '❌ No' }}</td>
+    <td>
+      <button *ngIf="!file.isApproved" (click)="approve(file.id)">Approve</button>
+    </td>
+  </tr>
+</table>

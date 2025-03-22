@@ -3,10 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private API_URL = 'http://localhost:3000/auth';
+  private API_URL = `${environment.apiBaseUrl}/auth`;
   constructor(private http: HttpClient, private jwt: JwtHelperService, private router: Router) {}
 
   login(credentials: { email: string, password: string }) {
