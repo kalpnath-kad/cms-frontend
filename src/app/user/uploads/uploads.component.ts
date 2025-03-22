@@ -1,19 +1,25 @@
-// src/app/user/uploads/uploads.component.ts
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as XLSX from 'xlsx';
-import { HttpClient } from '@angular/common/http';
+import { ApiService } from '../../shared/services/api.service';
 import { ToastrService } from 'ngx-toastr';
-import { environment } from '../../../environments/environment';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-user-uploads',
-  templateUrl: './uploads.component.html'
+  templateUrl: './uploads.component.html',
+  styleUrls: ['./uploads.component.css'],
+  imports: [CommonModule]
 })
-export class UploadsComponent {
+export class UploadsComponent implements OnInit {
   file: File | null = null;
+  uploadedFiles: any[] = [];
   excelData: any[] = [];
 
-  constructor(private http: HttpClient, private toastr: ToastrService) {}
+  constructor(private api: ApiService, private toastr: ToastrService) {}
+
+  ngOnInit(): void {
+    this.fetchUploadedFiles();
+  }
 
   onFileChange(event: any) {
     const target: DataTransfer = <DataTransfer>(event.target);
@@ -36,9 +42,31 @@ export class UploadsComponent {
     const formData = new FormData();
     formData.append('file', this.file);
 
-    this.http.post(`${environment.apiBaseUrl}/uploads`, formData).subscribe({
-      next: () => this.toastr.success('File uploaded successfully!'),
+    this.api.post('/uploads/upload', formData).subscribe({
+      next: () => {
+        this.toastr.success('File uploaded successfully!');
+        this.fetchUploadedFiles();
+        this.file = null;
+      },
       error: () => this.toastr.error('Upload failed!')
+    });
+  }
+
+  fetchUploadedFiles() {
+    this.api.get('/uploads/my-files').subscribe({
+      next: (data) => (this.uploadedFiles = data),
+      error: () => this.toastr.error('Failed to load files')
+    });
+  }
+
+  download(filePath: string) {
+    this.api.getBlob(filePath).subscribe(blob => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filePath.split('/').pop() || 'file.xlsx';
+      a.click();
+      window.URL.revokeObjectURL(url);
     });
   }
 }

@@ -10,8 +10,8 @@
   </thead>
   <tbody>
     <tr *ngFor="let upload of uploads">
-      <td>{{ upload.originalFileName }}</td>
-      <td>{{ upload.user.email }}</td>
+      <td>{{ upload.fileName }}</td>
+      <td>{{ upload.uploader.email }}</td>
       <td>{{ upload.status }}</td>
       <td>
         <button *ngIf="upload.status === 'pending'" (click)="approveUpload(upload.id)">Approve</button>

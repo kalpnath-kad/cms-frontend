@@ -1,35 +1,37 @@
-// src/app/admin/uploads/uploads.component.ts
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import * as XLSX from 'xlsx';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { environment } from '../../../environments/environment';
+import { ApiService } from '../../shared/services/api.service';
 
 @Component({
   selector: 'app-admin-uploads',
   templateUrl: './uploads.component.html',
+  standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  styleUrl: './uploads.component.css'
 })
 export class AdminUploadsComponent implements OnInit {
   uploads: any[] = [];
-  private apiUrl = `${environment.apiBaseUrl}`;
 
-  constructor(private http: HttpClient, private toastr: ToastrService) {}
+  constructor(private api: ApiService, private toastr: ToastrService) {}
 
   ngOnInit() {
     this.fetchUploads();
   }
 
   fetchUploads() {
-    this.http.get<any[]>(`${this.apiUrl}/uploads/all`).subscribe(data => {
-      this.uploads = data;
+    this.api.get('/uploads/my-files').subscribe({
+      next: (data: any[]) => {
+        this.uploads = data;
+      },
+      error: () => this.toastr.error('Failed to fetch uploads')
     });
   }
 
-  approve(uploadId: number) {
-    this.http.post(`${this.apiUrl}/uploads/approve/${uploadId}`, {}).subscribe({
+  approveUpload(uploadId: number) {
+    this.api.post(`/uploads/approve/${uploadId}`, {}).subscribe({
       next: () => {
         this.toastr.success('Upload approved!');
         this.fetchUploads();

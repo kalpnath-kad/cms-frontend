@@ -29,7 +29,7 @@ export class AdminHomeComponent implements OnInit {
     });
   }
 
-  approve(id: number) {
+  approve(id: number, value: 'yes' | 'no') {
     this.adminService.approveFile(id).subscribe({
       next: () => {
         this.loadFiles(); // reload files after approval

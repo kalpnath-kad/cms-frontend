@@ -9,9 +9,14 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  private getHeaders(): HttpHeaders {
+  private getHeaders(isFormData: boolean = false): HttpHeaders {
     const token = localStorage.getItem('access_token');
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    let headers = new HttpHeaders();
+    
+    if (!isFormData) {
+      headers = headers.set('Content-Type', 'application/json');
+    }
+
     if (token) {
       headers = headers.set('Authorization', `Bearer ${token}`);
     }
@@ -23,7 +28,8 @@ export class ApiService {
   }
 
   post(path: string, data: any): Observable<any> {
-    return this.http.post(`${this.API_URL}${path}`, data, { headers: this.getHeaders() });
+    const isFormData = data instanceof FormData;
+    return this.http.post(`${this.API_URL}${path}`, data, { headers: this.getHeaders(isFormData) });
   }
 
   patch(path: string, data: any): Observable<any> {
@@ -34,3 +40,4 @@ export class ApiService {
     return this.http.get(`${this.API_URL}${path}`, { headers: this.getHeaders(), responseType: 'blob' });
   }
 }
+

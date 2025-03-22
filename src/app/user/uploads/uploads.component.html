@@ -1,3 +1,28 @@
-<h2>Upload Excel File</h2>
-<input type="file" (change)="onFileSelected($event)" accept=".xlsx" />
-<button (click)="uploadFile()" [disabled]="!file">Upload</button>
+<div class="container">
+  <h2>Upload Excel File</h2>
+  <input type="file" (change)="onFileChange($event)" accept=".xlsx" />
+  <button (click)="upload()" [disabled]="!file">Upload</button>
+
+  <h3 *ngIf="uploadedFiles.length">My Uploaded Files</h3>
+  <table *ngIf="uploadedFiles.length">
+    <tr>
+      <th>File Name</th>
+      <th>Status</th>
+      <th>Admin Comment</th>
+      <th>Uploaded At</th>
+      <th>Actions</th>
+    </tr>
+    <tr *ngFor="let file of uploadedFiles">
+      <td>{{ file.fileName }}</td>
+      <td>
+        <span [ngClass]="'status ' + file.status">{{ file.status }}</span>
+      </td>
+      <td *ngIf="file.status === 'rejected'">{{ file.adminComment || 'No comment' }}</td>
+      <td *ngIf="file.status !== 'rejected'">-</td>
+      <td>{{ file.createdAt | date: 'medium' }}</td>
+      <td>
+        <button (click)="download(file.filePath)">Download</button>
+      </td>
+    </tr>
+  </table>
+</div>

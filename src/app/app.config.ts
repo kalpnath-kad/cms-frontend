@@ -7,7 +7,6 @@ import { importProvidersFrom } from '@angular/core';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 import { routes } from './app.routes';
-import { TokenInterceptor } from './shared/interceptors/token.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,6 +17,5 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(ToastrModule.forRoot()),
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService,
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ]
 };

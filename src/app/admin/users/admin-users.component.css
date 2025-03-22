@@ -1,0 +1,26 @@
+h2 {
+  margin-bottom: 20px;
+}
+
+.filter-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+button {
+  padding: 6px 12px;
+  cursor: pointer;
+}

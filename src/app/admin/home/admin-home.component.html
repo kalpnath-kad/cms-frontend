@@ -3,15 +3,20 @@
   <tr>
     <th>File Name</th>
     <th>Uploader</th>
-    <th>Approved</th>
+    <th>Status</th>
     <th>Actions</th>
   </tr>
   <tr *ngFor="let file of uploadedFiles">
     <td>{{ file.fileName }}</td>
     <td>{{ file.uploader.email }}</td>
-    <td>{{ file.isApproved ? '✅ Yes' : '❌ No' }}</td>
     <td>
-      <button *ngIf="!file.isApproved" (click)="approve(file.id)">Approve</button>
+      <span *ngIf="file.status === 'approved'" style="color: green;">✅ Approved</span>
+      <span *ngIf="file.status === 'pending'" style="color: orange;">⏳ Pending</span>
+      <span *ngIf="file.status === 'rejected'" style="color: red;">❌ Rejected</span>
+    </td>
+    <td>
+      <button *ngIf="file.status === 'pending'" (click)="approve(file.id, 'yes')">Approve</button>
+      <button *ngIf="file.status === 'pending'" (click)="approve(file.id, 'no')">Reject</button>
     </td>
   </tr>
 </table>
