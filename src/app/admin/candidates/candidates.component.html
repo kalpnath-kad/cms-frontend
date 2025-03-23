@@ -21,14 +21,14 @@
     <th>Uploader</th>
     <th>Uploaded At</th>
   </tr>
-  <tr *ngFor="let user of users">
+  <tr *ngFor="let user of filteredUsers">
     <td>{{ user.name }}</td>
     <td>{{ user.date_of_birth | date: 'mediumDate' }}</td>
     <td>{{ user.gender }}</td>
     <td>{{ user.phone_number }}</td>
     <td>{{ user.present_address }}</td>
     <td>{{ user.connected_temple }}</td>
-    <td>{{ user.uploader.email }}</td>
+    <td>{{ user.uploader?.email ? user.uploader.email : 'N/A' }}</td>
     <td>{{ user.createdAt | date: 'short' }}</td>
   </tr>
 </table>
