@@ -3,15 +3,17 @@
     <h3>Admin Panel</h3>
     <ul>
       <li>
-        <a routerLink="/admin/uploads" routerLinkActive="active">Excel Files</a>
+        <a><span routerLink="/admin/uploads" routerLinkActive="active">Excel Files</span></a>
       </li>
       <li>
-        <a routerLink="/admin/users" routerLinkActive="active">Users</a>
-      </li>
+        <a><span routerLink="/admin/candidates" routerLinkActive="active">Candidates</span></a>
+      </li>      
+      <!-- Add more links here if needed -->
     </ul>
   </aside>
 
   <main class="content">
+    <!-- Main router outlet where child routes will render -->
     <router-outlet></router-outlet>
   </main>
 </div>

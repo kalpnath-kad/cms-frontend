@@ -21,7 +21,7 @@
     <th>Uploader</th>
     <th>Uploaded At</th>
   </tr>
-  <tr *ngFor="let user of filteredUsers">
+  <tr *ngFor="let user of users">
     <td>{{ user.name }}</td>
     <td>{{ user.date_of_birth | date: 'mediumDate' }}</td>
     <td>{{ user.gender }}</td>

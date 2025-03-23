@@ -4,12 +4,13 @@ import * as XLSX from 'xlsx';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../shared/services/api.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-admin-uploads',
   templateUrl: './uploads.component.html',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
   styleUrl: './uploads.component.css'
 })
 export class AdminUploadsComponent implements OnInit {
@@ -31,7 +32,7 @@ export class AdminUploadsComponent implements OnInit {
   }
 
   approveUpload(uploadId: number) {
-    this.api.post(`/uploads/approve/${uploadId}`, {}).subscribe({
+    this.api.patch(`/uploads/approve/${uploadId}`, {}).subscribe({
       next: () => {
         this.toastr.success('Upload approved!');
         this.fetchUploads();
