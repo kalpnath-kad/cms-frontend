@@ -6,12 +6,12 @@ import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
-  selector: 'app-admin-layout',
-  templateUrl: './admin-layout.component.html',
+  selector: 'app-user-layout',
+  templateUrl: './user-layout.component.html',
   imports: [CommonModule, RouterOutlet, RouterModule],
-  styleUrl: './admin-layout.component.css',
+  styleUrl: './user-layout.component.css',
 })
-export class AdminLayoutComponent implements OnInit {
+export class UserLayoutComponent implements OnInit {
   uploads: any[] = [];
   private apiUrl = `${environment.apiBaseUrl}`;
 

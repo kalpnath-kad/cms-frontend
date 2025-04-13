@@ -34,8 +34,8 @@ export class CandidatesComponent implements OnInit {
   getCandidates() {
     const query = `/candidates?page=${this.page}&limit=${this.limit}`;
     this.api.get(query).subscribe((res: any) => {
-      this.users = res.data;
-      this.totalUsers = res.total; // Assuming backend sends total count
+      this.users = res.items;
+      this.totalUsers = res?.meta?.totalItems; // Assuming backend sends total count
       this.filteredUsers = [...this.users];
     });
   }
