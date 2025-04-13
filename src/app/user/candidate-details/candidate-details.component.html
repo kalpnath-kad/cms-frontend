@@ -1,0 +1,28 @@
+<h2>Edit Candidate</h2>
+
+<form [formGroup]="candidateForm" (ngSubmit)="onSubmit()">
+  <label>Name:</label>
+  <input formControlName="name" />
+
+  <label>Date of Birth:</label>
+  <input formControlName="date_of_birth" type="date" />
+
+  <label>Gender:</label>
+  <select formControlName="gender">
+    <option value="Male">Male</option>
+    <option value="Female">Female</option>
+    <option value="Other">Other</option>
+  </select>
+
+  <label>Phone Number:</label>
+  <input formControlName="phone_number" />
+
+  <label>Address:</label>
+  <input formControlName="present_address" />
+
+  <label>Connected Temple:</label>
+  <input formControlName="connected_temple" />
+
+  <button type="submit">Save Changes</button>
+  <button type="button" routerLink="/user/candidates">Cancel</button>
+</form>

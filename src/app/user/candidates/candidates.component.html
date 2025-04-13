@@ -29,7 +29,10 @@
   </thead>
   <tbody>
     <tr *ngFor="let user of filteredUsers">
-      <td>{{ user.name }}</td>
+      <!-- <td>{{ user.name }}</td> -->
+      <td>
+        <a [routerLink]="['/user/candidates', user.id]">{{ user.name }}</a>
+      </td>
       <td>{{ user.date_of_birth | date: 'mediumDate' }}</td>
       <td>{{ user.gender }}</td>
       <td>{{ user.phone_number }}</td>

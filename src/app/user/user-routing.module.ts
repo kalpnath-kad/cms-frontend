@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { UploadsComponent } from './uploads/uploads.component';
 import { UserLayoutComponent } from './layout/user-layout.component';
 import { CandidatesComponent } from './candidates/candidates.component';
+import { CandidateDetailsComponent } from './candidate-details/candidate-details.component';
 
 const routes: Routes = [
   {
@@ -11,7 +12,12 @@ const routes: Routes = [
     children: [
       { path: 'uploads', component: UploadsComponent },
       { path: 'candidates', component: CandidatesComponent },
-      { path: '', redirectTo: 'uploads', pathMatch: 'full' }
+      { path: '', redirectTo: 'uploads', pathMatch: 'full' },
+      {
+        path: 'candidates/:id',
+        component: CandidateDetailsComponent
+      }
+      
     ]
   }
 ];
